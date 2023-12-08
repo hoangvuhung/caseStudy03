@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+</head>
+<style>
+    img{
+        width: 500px;
+    }
+</style>
+<body>
+    <div id="list"></div>
+    <script>
+        $("document").ready(() => {
+            $.get(
+                "https://8c22c204b3474980b549d26caf5ab0eb.api.mockbin.io/",
+                (data, textStatus, xhr) => {
+                    console.log({data})
+                    if(xhr.status === 200){
+                        showData(data);
+                    }
+                }
+            );
+            function showData(arr){
+                const list = document.getElementById("list");
+                const template =
+                 `<div id="list">
+                    <div>
+                        <img src="./img/strong-man-training-gym-scaled.jpg" alt="" />
+                      </div>
+                    <div>$title</div>
+                    <div>$published_at</div>
+                    <div>$transliterated</div>
+                </div>`;
+            arr.forEach((element) => {
+            let newElement = template
+              .replace("$title", element.title)
+              .replace("$published_at", element.published_at)
+              .replace("$transliterated", element.transliterated)
+            const div = document.createElement("div");
+            div.innerHTML = newElement;
+            list.appendChild(div);
+          });
+        }
+    });
+    </script>
+</body>
+</html>

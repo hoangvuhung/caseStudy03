@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div id="detail">
+      <div id="title"></div>
+      <img
+        id="img"
+        src="https://images.viblo.asia/e6de922a-b90d-48b5-a38e-ad43a33cf833.png" alt="" width="600" height="500"/>
+      <div id="published_at"></div>
+      <div id="transliterated"></div>
+      <div id="content"></div>
+    </div>
+
+    <script>
+      $(document).ready(() => {
+        $.get(
+          "https://8c22c204b3474980b549d26caf5ab0eb.api.mockbin.io/",
+          (data, textStatus, xhr) => {
+            if (xhr.status === 200) {
+              data.forEach((element) => {
+                showData(element);
+              });
+            }
+          }
+        );
+        function showData(ojb) {
+          const title = document.getElementById("title");
+          title.innerText = ojb.title;
+          const published_at = document.getElementById("published_at");
+          published_at.innerText = ojb.published_at;
+          const transliterated = document.getElementById("transliterated");
+          transliterated.innerText = ojb.transliterated;
+          const content = document.getElementById("content");
+          content.innerText = ojb.content;
+        }
+      });
+    </script>
+  </body>
+</html>
